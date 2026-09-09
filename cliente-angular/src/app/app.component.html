@@ -1,0 +1,95 @@
+<header>
+  <div>
+    <span class="eyebrow">Spring Boot + Angular</span>
+    <h1>Biblioteca GraphQL</h1>
+    <p>Administra el catálogo mediante consultas y mutaciones GraphQL.</p>
+  </div>
+</header>
+
+<main>
+  <section class="card formulario-card">
+    <div class="section-title">
+      <div>
+        <span class="step">01</span>
+        <h2>{{ editandoId() ? 'Editar libro' : 'Nuevo libro' }}</h2>
+      </div>
+      @if (editandoId()) { <span class="badge">ID {{ editandoId() }}</span> }
+    </div>
+
+    <form [formGroup]="formulario" (ngSubmit)="guardar()">
+      <label>
+        Título
+        <input formControlName="titulo" placeholder="Ej. Clean Architecture">
+        @if (formulario.controls.titulo.touched && formulario.controls.titulo.invalid) {
+          <small>Escribe el título del libro.</small>
+        }
+      </label>
+      <label>
+        Autor
+        <input formControlName="autor" placeholder="Ej. Robert C. Martin">
+        @if (formulario.controls.autor.touched && formulario.controls.autor.invalid) {
+          <small>Escribe el nombre del autor.</small>
+        }
+      </label>
+      <label>
+        Año
+        <input type="number" formControlName="anio" min="0" max="9999">
+        @if (formulario.controls.anio.touched && formulario.controls.anio.invalid) {
+          <small>Indica un año válido.</small>
+        }
+      </label>
+      <div class="actions">
+        <button class="primary" type="submit" [disabled]="guardando()">
+          {{ guardando() ? 'Guardando…' : (editandoId() ? 'Actualizar' : 'Agregar libro') }}
+        </button>
+        @if (editandoId()) {
+          <button class="secondary" type="button" (click)="cancelarEdicion()">Cancelar</button>
+        }
+      </div>
+    </form>
+  </section>
+
+  @if (mensaje()) { <div class="notice success">{{ mensaje() }}</div> }
+  @if (error()) { <div class="notice error">{{ error() }}</div> }
+
+  <section class="card">
+    <div class="section-title list-title">
+      <div>
+        <span class="step">02</span>
+        <h2>Catálogo</h2>
+      </div>
+      <button class="secondary" type="button" (click)="cargar()" [disabled]="cargando()">
+        {{ cargando() ? 'Actualizando…' : 'Actualizar lista' }}
+      </button>
+    </div>
+
+    @if (cargando() && libros().length === 0) {
+      <div class="empty">Cargando libros…</div>
+    } @else if (libros().length === 0) {
+      <div class="empty">Todavía no hay libros. Agrega el primero.</div>
+    } @else {
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>ID</th><th>Título</th><th>Autor</th><th>Año</th><th>Acciones</th></tr></thead>
+          <tbody>
+            @for (libro of libros(); track libro.id) {
+              <tr>
+                <td data-label="ID">{{ libro.id }}</td>
+                <td data-label="Título"><strong>{{ libro.titulo }}</strong></td>
+                <td data-label="Autor">{{ libro.autor }}</td>
+                <td data-label="Año">{{ libro.anio }}</td>
+                <td data-label="Acciones" class="row-actions">
+                  <button class="edit" type="button" (click)="editar(libro)">Editar</button>
+                  <button class="delete" type="button" (click)="eliminar(libro)"
+                          [disabled]="eliminandoId() === libro.id">
+                    {{ eliminandoId() === libro.id ? 'Eliminando…' : 'Eliminar' }}
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </section>
+</main>

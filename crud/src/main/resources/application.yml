@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: spring-graphql-crud
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/graphql_crud}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  graphql:
+    graphiql:
+      enabled: true
+server:
+  port: ${SERVER_PORT:8080}

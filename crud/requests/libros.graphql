@@ -1,0 +1,28 @@
+# Listar
+query {
+  libros { id titulo autor anio }
+}
+
+# Buscar uno (ejecutar cada operación por separado)
+query {
+  libro(id: 1) { id titulo autor anio }
+}
+
+# Crear
+mutation {
+  crearLibro(input: { titulo: "Spring in Action", autor: "Craig Walls", anio: 2022 }) {
+    id titulo autor anio
+  }
+}
+
+# Actualizar
+mutation {
+  actualizarLibro(id: 1, input: { titulo: "Effective Java 3a edición", autor: "Joshua Bloch", anio: 2018 }) {
+    id titulo autor anio
+  }
+}
+
+# Eliminar: devuelve true si existía y false si no existía
+mutation {
+  eliminarLibro(id: 1)
+}
