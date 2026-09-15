@@ -1,8 +1,24 @@
-# CRUD de Libros con Spring Boot GraphQL, PostgreSQL y Angular
+# CRUD GraphQL de Libros — Spring Boot + PostgreSQL + Angular
 
-Proyecto full stack de ejemplo para administrar un catálogo de libros mediante **GraphQL**, con backend en **Spring Boot**, persistencia en **PostgreSQL** y cliente web desarrollado con **Angular**.
+> Aplicación **full stack en Java** para gestionar libros mediante **GraphQL**, con **Spring Boot**, **Spring for GraphQL**, **PostgreSQL**, **Angular** y **Docker Compose**.
 
-El repositorio muestra una implementación completa de consultas y mutaciones GraphQL para crear, listar, actualizar y eliminar libros desde una interfaz Angular.
+![Java](https://img.shields.io/badge/Java-17-informational)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.3-informational)
+![GraphQL](https://img.shields.io/badge/GraphQL-Spring-informational)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-informational)
+![Angular](https://img.shields.io/badge/Angular-19.2-informational)
+
+Este repositorio muestra una implementación completa de **GraphQL con Spring Boot**, persistencia con PostgreSQL y un cliente Angular. Incluye queries y mutations para administrar un catálogo de libros y sirve como referencia práctica para aprender Spring for GraphQL desde un ejemplo full stack pequeño y comprensible.
+
+## Lo más importante
+
+- Backend con Spring Boot y Spring for GraphQL.
+- Queries y mutations GraphQL.
+- Persistencia con Spring Data JPA y PostgreSQL.
+- Cliente Angular separado del backend.
+- CRUD completo de libros.
+- Docker Compose para ejecutar la infraestructura localmente.
+- Proyecto útil como punto de partida para APIs GraphQL en Java.
 
 ## Tecnologías
 
@@ -17,7 +33,19 @@ El repositorio muestra una implementación completa de consultas y mutaciones Gr
 - TypeScript 5.7
 - RxJS
 
-## Estructura del repositorio
+## Arquitectura
+
+```text
+Angular
+   │ GraphQL queries / mutations
+   ▼
+Spring Boot + Spring for GraphQL
+   │ Spring Data JPA
+   ▼
+PostgreSQL
+```
+
+## Estructura
 
 ```text
 .
@@ -25,47 +53,21 @@ El repositorio muestra una implementación completa de consultas y mutaciones Gr
 └── cliente-angular/  # Frontend Angular
 ```
 
-## Backend GraphQL
+## Inicio rápido
 
-El backend expone el endpoint GraphQL estándar de Spring:
-
-```text
-http://localhost:8080/graphql
-```
-
-El esquema permite trabajar con libros mediante operaciones GraphQL como:
-
-```graphql
-query {
-  libros {
-    id
-    titulo
-    autor
-    anio
-  }
-}
-```
-
-Y mutaciones para crear, actualizar y eliminar registros.
-
-## Ejecutar con Docker Compose
-
-El backend incluye un `compose.yml` con PostgreSQL y la API.
+### Con Docker Compose
 
 ```bash
 cd crud
 docker compose up --build
 ```
 
-La configuración usa:
+Servicios principales:
 
-- Base de datos: `graphql_crud`
 - PostgreSQL: puerto `5432`
-- API GraphQL: puerto `8080`
+- API GraphQL: `http://localhost:8080/graphql`
 
-## Ejecutar el backend con Maven
-
-Si prefieres ejecutar solamente PostgreSQL en Docker y Spring Boot localmente:
+### Backend con Maven
 
 ```bash
 cd crud
@@ -79,9 +81,7 @@ mvn clean package
 java -jar target/spring-graphql-crud-1.0.0.jar
 ```
 
-## Cliente Angular
-
-El frontend consume `/graphql` mediante `HttpClient` y ejecuta queries y mutations desde el navegador.
+### Cliente Angular
 
 ```bash
 cd cliente-angular
@@ -89,11 +89,26 @@ npm install
 npm start
 ```
 
-Después abre:
+Abre:
 
 ```text
 http://localhost:4200
 ```
+
+## Ejemplo GraphQL
+
+```graphql
+query {
+  libros {
+    id
+    titulo
+    autor
+    anio
+  }
+}
+```
+
+El esquema también define mutations para crear, actualizar y eliminar registros.
 
 ## Funcionalidades
 
@@ -104,18 +119,33 @@ http://localhost:4200
 - Persistencia en PostgreSQL
 - Interfaz Angular
 - Formularios y validación
-- Docker Compose para ejecución local
+- Docker Compose
 
-## Organización del código
+## Para qué sirve este proyecto
 
-El backend contiene el esquema GraphQL, entidades JPA, repositorios, servicios y resolvers/controllers necesarios para manejar las operaciones del catálogo.
+Es una referencia práctica para estudiar:
 
-El cliente Angular está separado del backend para mostrar una arquitectura full stack donde GraphQL funciona como capa de comunicación entre ambos proyectos.
+- **Spring for GraphQL**.
+- Diseño de schemas GraphQL.
+- Queries y mutations.
+- Persistencia GraphQL + JPA + PostgreSQL.
+- Consumo de GraphQL desde Angular.
+- Arquitectura full stack Java moderna.
 
-## Objetivo del proyecto
+## Otros proyectos del mismo perfil
 
-Servir como ejemplo práctico de un **CRUD GraphQL con Spring Boot, PostgreSQL y Angular**, útil para estudiar Spring for GraphQL, queries, mutations, JPA y consumo de GraphQL desde Angular.
+- [CRUD PostgreSQL REST + Angular](https://github.com/rodolfo99/CRUD-PstgreSQL-Libros-con-cliente-angular)
+- [CRUD Apache Solr + Angular](https://github.com/rodolfo99/CRUD-Solr-con-cliente-angular)
+- [CRUD Neo4j + Angular](https://github.com/rodolfo99/CRUD-LIBROS-NEO4J)
+- [Spring Data GraphDB](https://github.com/rodolfo99/Spring-Data-GraphDB)
+- [Marc2BF — MARC21 a BIBFRAME](https://github.com/rodolfo99/Marc2BF)
+
+## Autor
+
+**Rodolfo Valencia** — desarrollo de software, Java, Spring, Angular, bases de datos, tecnologías semánticas e inteligencia artificial.
+
+GitHub: [@rodolfo99](https://github.com/rodolfo99)
 
 ## Temas relacionados
 
-Spring Boot, Spring GraphQL, GraphQL, PostgreSQL, Spring Data JPA, Angular, Java, TypeScript, CRUD, queries, mutations, Docker, Maven, desarrollo full stack.
+Spring Boot · Spring GraphQL · GraphQL · PostgreSQL · Spring Data JPA · Angular · Java · TypeScript · CRUD · queries · mutations · Docker · Maven · full stack
